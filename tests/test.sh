@@ -2,6 +2,10 @@
 
 set -e
 
+if [ x"$DEBUG" = xtrue ]; then
+    set -x
+fi
+
 trap _catch_err ERR
 trap _cleanup EXIT
 
@@ -63,16 +67,14 @@ docker run --name "${NGINX_VERSION}"_test --rm -p 65521:80 -p 65523:443 \
            -v "$TMP_DIR"/dhparams.pem:/tmp/dhparams.pem:ro \
            -d "${DOCKER_IMAGE}":"${NGINX_VERSION}"
 
-printf "\nTesting http request: %s:%s\n" "${DOCKER_IMAGE}" "${NGINX_VERSION}"
-STATUS_CODE=$(curl -s -m 5 -o /dev/null -w "%{http_code}" http://localhost:65521/nginx_status)
-_check_status_code "$STATUS_CODE"
+for request in http://localhost:65521/nginx_status https://localhost:65523/nginx_status; do
+    printf "\nRequesting %s\n" $request
+    STATUS_CODE=$(curl -s -k -m 5 -o /dev/null -w "%{http_code}" $request)
+    _check_status_code "$STATUS_CODE"
+done
 
-printf "\nTesting https request: %s:%s\n" "${DOCKER_IMAGE}" "${NGINX_VERSION}"
-STATUS_CODE=$(curl -s -m 5 -o /dev/null -w "%{http_code}" --http2 -k https://localhost:65523/)
-_check_status_code "$STATUS_CODE"
-
-printf "\nTesting http geoip request: %s:%s\n" "${DOCKER_IMAGE}" "${NGINX_VERSION}"
-RESPONSE=$(curl -s -m 5 http://localhost:65521/geoip)
+printf "\nRequesting http://localhost:65521/ip\n"
+RESPONSE=$(curl -s -m 5 http://localhost:65521/ip)
 _check_if_is_ip "$RESPONSE"
 
 echo "All tests succeeded !"
