@@ -15,8 +15,8 @@ Current modules:
 Edit [conf.env](conf.env)
 
 ```bash
-NGINX_VERSION=1.17.6          # Nginx version to build from
-NGX_GEOIP2_VERSION=3.3        # Nginx geoip2 version to build from
+NGINX_VERSION=x.xx.x          # Nginx version to build from
+NGX_GEOIP2_VERSION=x.x        # Nginx geoip2 version to build from
 DOCKER_IMAGE=dcarrillo/nginx  # Docker image
 ```
 
