@@ -30,5 +30,5 @@ fi
 
 if [ x$LATEST = "xtrue" ]; then
     docker tag "$DOCKER_IMAGE":"$NGINX_VERSION" "$DOCKER_IMAGE":latest
-    docker push "$DOCKER_IMAGE":latest
+    [ x$PUSH = "xtrue" ] && docker push "$DOCKER_IMAGE":latest
 fi
