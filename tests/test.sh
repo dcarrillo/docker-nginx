@@ -9,9 +9,7 @@ fi
 trap _catch_err ERR
 trap _cleanup EXIT
 
-LOCAL_DIR=$(dirname "$0")
-
-LOCAL_DIR="$( cd "$(dirname "$0")" ; pwd -P )"
+LOCAL_DIR="$(cd "$(dirname "$0")" ; pwd -P)"
 . "$LOCAL_DIR"/../conf.env
 
 TMP_DIR=$(mktemp -d)
@@ -65,7 +63,7 @@ docker run --name "${NGINX_VERSION}"_test --rm -p 65521:80 -p 65523:443 \
            -v "$TMP_DIR"/cert.pem:/tmp/cert.pem:ro \
            -v "$TMP_DIR"/cert.key:/tmp/cert.key:ro \
            -v "$TMP_DIR"/dhparams.pem:/tmp/dhparams.pem:ro \
-           -d "${DOCKER_IMAGE}":"${NGINX_VERSION}"
+           -d "${DOCKER_IMAGE}":"${NGINX_VERSION}" > /dev/null
 
 for request in http://localhost:65521/nginx_status https://localhost:65523/nginx_status; do
     printf "\nRequesting %s\n" $request
