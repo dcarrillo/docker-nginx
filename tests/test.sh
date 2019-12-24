@@ -70,8 +70,8 @@ docker run --name "${NGINX_VERSION}"_test --rm \
 
 echo "Preparing requester container..."
 docker run --name "${NGINX_VERSION}"_requester --rm --link "${NGINX_VERSION}"_test \
-           -ti -d $ALPINE_VERSION sh > /dev/null
-exec_docker="docker exec -ti ${NGINX_VERSION}_requester"
+           -i -d $ALPINE_VERSION sh > /dev/null
+exec_docker="docker exec -i ${NGINX_VERSION}_requester"
 $exec_docker apk add curl > /dev/null
 
 for request in http://${NGINX_VERSION}_test/nginx_status https://${NGINX_VERSION}_test/nginx_status; do
