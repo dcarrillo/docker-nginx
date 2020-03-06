@@ -74,12 +74,14 @@ docker run --name "${NGINX_VERSION}"_requester --rm --link "${NGINX_VERSION}"_te
 exec_docker="docker exec -i ${NGINX_VERSION}_requester"
 $exec_docker apk add curl > /dev/null
 
+## Test 1 status code by protocol
 for request in http://${NGINX_VERSION}_test/nginx_status https://${NGINX_VERSION}_test/nginx_status; do
     printf "\nRequesting %s\n" "$request"
     STATUS_CODE=$($exec_docker curl -s -k -m 5 -o /dev/null -w "%{http_code}" "$request")
     _check_status_code "$STATUS_CODE"
 done
 
+## Test 2 request my ip
 request="http://${NGINX_VERSION}_test/ip"
 printf "\nRequesting %s\n" "$request"
 RESPONSE=$($exec_docker curl -s -m 5 "$request" | tr -d '\r')

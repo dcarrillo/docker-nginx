@@ -4,11 +4,11 @@ Nginx docker image with a minimal set of modules.
 
 Current modules:
 
-- [geoip2](https://github.com/leev/ngx_http_geoip2_module)
-- stream
-- http_ssl_module
-- http_v2_module
-- http_stub_status_module
+  - [geoip2](https://github.com/leev/ngx_http_geoip2_module)
+  - stream
+  - http_ssl_module
+  - http_v2_module
+  - http_stub_status_module
 
 ## Configuration
 
@@ -44,9 +44,9 @@ Build locally, tag image as latest and upload to a registry (you must be logged 
 
 Prerequisites:
 
-- docker
-- openssl
-- curl
+  - docker
+  - openssl
+  - curl
 
 ```bash
 # build local image
