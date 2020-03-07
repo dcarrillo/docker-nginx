@@ -6,11 +6,13 @@ if [ x"$DEBUG" = xtrue ]; then
     set -x
 fi
 
+# shellcheck disable=SC2039
 trap _catch_err ERR
 trap _cleanup EXIT
 
 ALPINE_VERSION="alpine:3.11"
 LOCAL_DIR="$(cd "$(dirname "$0")" ; pwd -P)"
+# shellcheck disable=SC1090
 . "$LOCAL_DIR"/../conf.env
 
 TMP_DIR=$(mktemp -d)

@@ -6,7 +6,8 @@ ARG ARG_NGX_GEOIP2_VERSION
 ENV NGINX_VERSION $ARG_NGINX_VERSION
 ENV NGX_GEOIP2_VERSION $ARG_NGX_GEOIP2_VERSION
 
-RUN CONFIG="\
+# hadolint ignore=DL3018,DL3003,SC2086
+RUN CONFIG=" \
         --add-module=/tmp/ngx_http_geoip2_module-$NGX_GEOIP2_VERSION \
         --with-stream \
         --with-http_ssl_module \
