@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: shellcheck
-        uses: fearphage/shellcheck-action@master
+        uses: azohra/shell-linter@v0.1.0
 
       - name: hadolint
         uses: brpaz/hadolint-action@master
