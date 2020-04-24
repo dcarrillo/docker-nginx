@@ -9,7 +9,6 @@ ENV NGX_GEOIP2_VERSION $ARG_NGX_GEOIP2_VERSION
 # hadolint ignore=DL3018,DL3003,SC2086
 RUN CONFIG=" \
         --add-module=/tmp/ngx_http_geoip2_module-$NGX_GEOIP2_VERSION \
-        --with-stream \
         --with-http_ssl_module \
         --with-http_v2_module \
         --with-http_stub_status_module \
