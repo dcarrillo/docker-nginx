@@ -34,7 +34,7 @@ _cleanup()
 _setup_crypto_stuff()
 {
     echo "Generating SSL files..."
-    openssl dhparam -out "$TMP_DIR"/dhparams.pem 512 > /dev/null 2>&1
+    openssl dhparam -out "$TMP_DIR"/dhparams.pem 1024 > /dev/null 2>&1
     openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
         -subj "/C=ES/ST=Madrid/L=Madrid/O=dcarrillo/CN=localhost" \
         -keyout "$TMP_DIR"/cert.key -out "$TMP_DIR"/cert.pem > /dev/null 2>&1
