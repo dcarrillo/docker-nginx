@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.16.0
 
 ARG ARG_NGINX_VERSION
 ARG ARG_NGX_GEOIP2_VERSION
@@ -49,7 +49,7 @@ RUN CONFIG=" \
         zlib-dev \
         linux-headers \
         curl \
-        gnupg1 \
+        gnupg \
         libxslt-dev \
         gd-dev \
         libmaxminddb-dev \
