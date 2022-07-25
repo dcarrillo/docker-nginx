@@ -10,7 +10,7 @@ fi
 trap _catch_err ERR
 trap _cleanup EXIT
 
-ALPINE_VERSION="alpine:3.11"
+ALPINE_VERSION="alpine:3.16"
 LOCAL_DIR="$(cd "$(dirname "$0")" ; pwd -P)"
 # shellcheck disable=SC1090
 . "$LOCAL_DIR"/../conf.env
@@ -50,16 +50,6 @@ _check_status_code()
     fi
 }
 
-_check_if_is_ip()
-{
-    if echo "$1" | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$" > /dev/null; then
-        echo "Test succeeded"
-    else
-        printf "Response: %s\nTest failed, response is not an IP\n" "$RESPONSE"
-        exit 1
-    fi
-}
-
 _setup_crypto_stuff
 
 echo "Preparing dcarrillo/php"
@@ -71,7 +61,6 @@ docker exec -i php sh -c "echo 'pm.status_path = /phpfpm_status' \
 echo "Running container to be tested..."
 docker run --name "${NGINX_VERSION}"_test --rm --link php \
            -v "$LOCAL_DIR"/nginx.conf:/usr/local/nginx/conf/nginx.conf:ro \
-           -v "$LOCAL_DIR"/GeoLite2-Country.mmdb:/tmp/GeoLite2-Country.mmdb:ro \
            -v "$TMP_DIR"/cert.pem:/tmp/cert.pem:ro \
            -v "$TMP_DIR"/cert.key:/tmp/cert.key:ro \
            -v "$TMP_DIR"/dhparams.pem:/tmp/dhparams.pem:ro \
@@ -95,11 +84,5 @@ for request in $requests; do
     STATUS_CODE=$($exec_docker curl -s -k -m 5 -o /dev/null -w "%{http_code}" "$request")
     _check_status_code "$STATUS_CODE"
 done
-
-## Test 2 request my ip
-request="http://${NGINX_VERSION}_test/ip"
-printf "\nRequesting %s\n" "$request"
-RESPONSE=$($exec_docker curl -s -m 5 "$request" | tr -d '\r')
-_check_if_is_ip "$RESPONSE"
 
 echo "All tests succeeded !"

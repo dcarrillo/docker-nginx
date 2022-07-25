@@ -22,7 +22,6 @@ while [ $# -gt 0 ]; do
 done
 
 docker build --build-arg=ARG_NGINX_VERSION="$NGINX_VERSION" \
-             --build-arg=ARG_NGX_GEOIP2_VERSION="$NGX_GEOIP2_VERSION" \
              -t "$DOCKER_IMAGE":"$NGINX_VERSION" .
 
 if [ x$PUSH = "xtrue" ]; then
