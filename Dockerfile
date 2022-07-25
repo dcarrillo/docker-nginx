@@ -1,14 +1,11 @@
-FROM alpine:3.13
+FROM alpine:3.16
 
 ARG ARG_NGINX_VERSION
-ARG ARG_NGX_GEOIP2_VERSION
 
 ENV NGINX_VERSION $ARG_NGINX_VERSION
-ENV NGX_GEOIP2_VERSION $ARG_NGX_GEOIP2_VERSION
 
 # hadolint ignore=DL3018,DL3003,SC2086
 RUN CONFIG=" \
-        --add-module=/tmp/ngx_http_geoip2_module-$NGX_GEOIP2_VERSION \
         --with-http_ssl_module \
         --with-http_v2_module \
         --with-http_stub_status_module \
@@ -49,18 +46,12 @@ RUN CONFIG=" \
         zlib-dev \
         linux-headers \
         curl \
-        gnupg1 \
         libxslt-dev \
         gd-dev \
-        libmaxminddb-dev \
     && apk add --no-cache \
-        libmaxminddb \
         pcre \
     \
     # installation
-    && curl -sL -o /tmp/ngx_http_geoip2_module.tar.gz https://github.com/leev/ngx_http_geoip2_module/archive/$NGX_GEOIP2_VERSION.tar.gz \
-    && tar -zxC /tmp -f /tmp/ngx_http_geoip2_module.tar.gz \
-    \
     && curl -sL -o /tmp/nginx.tar.gz http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
     && tar -zxC /tmp -f /tmp/nginx.tar.gz \
     && cd /tmp/nginx-$NGINX_VERSION \
