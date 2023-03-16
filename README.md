@@ -28,13 +28,13 @@ Build locally:
 ./build.sh
 ```
 
-Build locally and upload to a registry (you must be logged in to the registry)
+Build locally and upload the image to a registry (you must be logged in to the registry)
 
 ```bash
 ./build.sh --push
 ```
 
-Build locally, tag image as latest and upload to a registry (you must be logged in to the registry)
+Build locally, tag the image as latest and upload it to a registry (you must be logged in to the registry)
 
 ```bash
 ./build.sh --push --latest
