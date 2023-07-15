@@ -45,10 +45,10 @@ RUN CONFIG=" \
         pcre-dev \
         zlib-dev \
         linux-headers \
-        curl \
         libxslt-dev \
         gd-dev \
     && apk add --no-cache \
+        curl \
         pcre \
     \
     # installation
