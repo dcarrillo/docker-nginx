@@ -10,7 +10,7 @@ fi
 trap _catch_err ERR
 trap _cleanup EXIT
 
-ALPINE_VERSION="alpine:3.16"
+ALPINE_VERSION="alpine:3.19"
 LOCAL_DIR="$(cd "$(dirname "$0")" ; pwd -P)"
 # shellcheck disable=SC1090
 . "$LOCAL_DIR"/../conf.env
@@ -52,8 +52,8 @@ _check_status_code()
 
 _setup_crypto_stuff
 
-echo "Preparing dcarrillo/php"
-docker run --name php --rm -d dcarrillo/php > /dev/null
+echo "Preparing php"
+docker run --name php --rm -d php:fpm-alpine > /dev/null
 docker exec -i php sh -c "echo 'pm.status_path = /phpfpm_status' \
                          >> /usr/local/etc/php-fpm.d/www.conf \
                          && kill -USR2 1"
