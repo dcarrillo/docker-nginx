@@ -65,7 +65,4 @@ RUN CONFIG=" \
 
 STOPSIGNAL SIGTERM
 
-HEALTHCHECK --interval=10s --retries=2 --timeout=3s \
-    CMD curl -f http://localhost/ || exit 1
-
 CMD ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"]
