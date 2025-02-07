@@ -2,7 +2,7 @@
 
 ![build](https://github.com/dcarrillo/docker-nginx/workflows/CI/badge.svg)
 
-Nginx docker image with a minimal set of modules.
+Nginx docker image with a minimal set of modules. The image is based on the official Nginx image and it is built from source.
 
 Current modules:
 
