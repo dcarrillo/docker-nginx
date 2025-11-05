@@ -17,7 +17,7 @@ Edit [conf.env](conf.env)
 
 ```bash
 NGINX_VERSION=x.xx.x          # Nginx version to build from
-DOCKER_IMAGE=dcarrillo/nginx  # Docker image
+DOCKER_IMAGE=dcarrillo/nginx  # Docker image target
 ```
 
 ## Build
@@ -25,19 +25,13 @@ DOCKER_IMAGE=dcarrillo/nginx  # Docker image
 Build locally:
 
 ```bash
-./build.sh
+make build
 ```
 
-Build locally and upload the image to a registry (you must be logged in to the registry)
+Push image (it includes latest tag):
 
 ```bash
-./build.sh --push
-```
-
-Build locally, tag the image as latest and upload it to a registry (you must be logged in to the registry)
-
-```bash
-./build.sh --push --latest
+make push-latest
 ```
 
 ## Testing
@@ -49,9 +43,5 @@ Prerequisites:
 - curl
 
 ```bash
-# build local image
-./build.sh
-
-# run tests
-./tests/test.sh
+make tests
 ```

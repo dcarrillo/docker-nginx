@@ -1,0 +1,14 @@
+services:
+  nginx:
+    build:
+      context: ..
+      args:
+        ARG_NGINX_VERSION: ${NGINX_VERSION}
+    volumes:
+      - ./nginx.conf:/usr/local/nginx/conf/nginx.conf:ro
+      - /tmp/nginx-ssl/cert.pem:/tmp/cert.pem:ro
+      - /tmp/nginx-ssl/cert.key:/tmp/cert.key:ro
+      - /tmp/nginx-ssl/dhparams.pem:/tmp/dhparams.pem:ro
+    ports:
+      - 80:80
+      - 443:443
